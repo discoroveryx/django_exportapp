@@ -1,5 +1,5 @@
-from dumpapp.helper import dumpinit
-from dumpapp.helper import BaseClassDumpapp
+from django_exportapp.helper import exporter
+from django_exportapp.helper import BaseClassExporter
 
 from .models import buyer
 from django.contrib.auth.models import User
