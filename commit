@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ctime=`date +%d-%m-%y_%H-%M`
+
+git config --global user.name "discoroveryx"
+
+git add *
+
+
+git commit -a -m "commit_"$ctime
+
+git push
