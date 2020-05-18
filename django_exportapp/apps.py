@@ -9,6 +9,6 @@ class ExportappConfig(AppConfig):
         self.module.autodiscover_wrapper()
         # debug
         from .helper import exporter
-        print(exporter)
-        for i in exporter.list():
-            print(i, exporter.arr[i])
+        # print(exporter)
+        # for i in exporter.list():
+        #     print(i, exporter.arr[i])

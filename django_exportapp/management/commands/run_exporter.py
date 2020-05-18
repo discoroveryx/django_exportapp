@@ -1,4 +1,4 @@
-import datetime
+# import datetime
 
 from django.core.management.base import BaseCommand
 
@@ -6,7 +6,7 @@ from django_exportapp.helper import exporter
 from django.core import serializers
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
-from subprocess import call
+# from subprocess import call
 from django.db import models
 
 
@@ -18,7 +18,13 @@ def dump_model_to_xml(target, data=None, mode='public'):
     #
     if data:
         print('{} [serializers]'.format(target))
-        s = serializers.serialize('xml', data, indent=4, use_natural_foreign_keys=False, use_natural_primary_keys=False)
+        s = serializers.serialize(
+            'xml',
+            data,
+            indent=4,
+            use_natural_foreign_keys=False,
+            use_natural_primary_keys=False,
+        )
         out = open("{}/{}.xml".format(dump_dir, target), "w")
         out.write(s)
         out.close()
@@ -68,26 +74,26 @@ def run_dump(mode='public'):
                     if mode == 'private':
                         pass
                     #
-                    dump_model_to_xml('{}.{}'.format(i.app_label, i.model), data=data, node=mode)
+                    dump_model_to_xml('{}.{}'.format(i.app_label, i.model), data=data, mode=mode)
 
 
-def run_tar(mode='public'):
-    ctime_format = "%Y%m%d_%H%M%S"
-    now = datetime.datetime.now()
-    fielname = now.strftime(ctime_format)
-    print(fielname)
-    call([
-        'tar',
-        '-czvf',
-        '{}/{}_{}_xml.tar.gz'.format(settings.EXPORTAPP_ARCH_DIR, settings.EXPORTAPP_PREFIX_NAME, fielname),
-        settings.EXPORTAPP_PRIVATE_DIR,
-    ])
+# def run_tar(mode='public'):
+#     ctime_format = "%Y%m%d_%H%M%S"
+#     now = datetime.datetime.now()
+#     fielname = now.strftime(ctime_format)
+#     print(fielname)
+#     call([
+#         'tar',
+#         '-czvf',
+#         '{}/{}_{}_xml.tar.gz'.format(settings.EXPORTAPP_ARCH_DIR, settings.EXPORTAPP_PREFIX_NAME, fielname),
+#         settings.EXPORTAPP_PRIVATE_DIR,
+#     ])
 
 
 class Command(BaseCommand):
     """Export models"""
 
-    help = "export all models from _exportapp"
+    help = "export all models from _exportapp.py"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -99,11 +105,11 @@ class Command(BaseCommand):
             help='public or private',
         )
 
-        parser.add_argument(
-            '--tar',
-            action='store_true',
-            help='make tar',
-        )
+        # parser.add_argument(
+        #     '--tar',
+        #     action='store_true',
+        #     help='make tar',
+        # )
 
     def handle(self, *args, **options):
         """The function that export data"""
@@ -122,12 +128,12 @@ class Command(BaseCommand):
             print('public')
             run_dump(mode='public')
 
-        if options['tar']:
-            print('tar')
-            if options['mode']:
-                run_tar(mode=options['mode'])
-            else:
-                run_tar()
+        # if options['tar']:
+        #     print('tar')
+        #     if options['mode']:
+        #         run_tar(mode=options['mode'])
+        #     else:
+        #         run_tar()
 
         self.stdout.write(
             self.style.SUCCESS(

@@ -11,7 +11,7 @@ class BaseClassExporter():
 
 
 class ExporterInitialization(object):
-    arr = {}
+    arr: dict = {}
 
     # def check_settings(self):
     #     try:
