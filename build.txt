@@ -3,3 +3,7 @@ python3 setup.py sdist bdist_wheel && /home/www/.pyenv/bin/pip3 install /home/ww
 twine upload dist/*
 
 /home/www/.pyenv/bin/pip3 uninstall django-exportapp
+
+python3 setup.py sdist bdist_wheel && pip3 install dist/django_exportapp-0.1.1.tar.gz
+
+twine upload dist/*

@@ -28,7 +28,7 @@ def dump_model_to_xml(target, data=None, mode='public'):
         out = open("{}/{}.xml".format(dump_dir, target), "w")
         out.write(s)
         out.close()
-        print('records={}'.format(data.count()))
+        print('{} [records {}]'.format(target, data.count()))
     return True
 
 
@@ -47,12 +47,20 @@ def run_dump(mode='public'):
         if i.app_label == 'hitcount':
             continue
         #
-        # print(i.app_label, i.model)
         try:
             dump_py_class = exporter.arr[i.model_class()]
         except Exception:
-            data = i.model_class().objects.all()
-            dump_model_to_xml('{}.{}'.format(i.app_label, i.model), data=data, mode=mode)
+            try:
+                # if application was remove, but stale in database
+                data = i.model_class().objects.all()
+            except Exception:
+                print(
+                    'Possibly application "{}" and model "{}" were remove, but exist stale contenttypes?'.format(
+                        i.app_label, i.model
+                    )
+                )
+            else:
+                dump_model_to_xml('{}.{}'.format(i.app_label, i.model), data=data, mode=mode)
             pass
         else:
             if dump_py_class.export_status is True:
