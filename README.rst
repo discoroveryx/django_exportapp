@@ -6,7 +6,9 @@ django_exportapp is a simple Django app to export models xml fixtures.
 
 Quick start
 -----------
-1. pip install django-exportapp::
+1. Install django-exportapp::
+
+        pip install django-exportapp
 
 2. Add "django-exportapp" to your INSTALLED_APPS setting like this::
 
