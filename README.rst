@@ -8,16 +8,16 @@ Quick start
 -----------
 1. Install django-exportapp::
 
-        pip install django-exportapp
+    pip install django-exportapp
 
 2. Add "django-exportapp" to your INSTALLED_APPS setting like this::
 
-        INSTALLED_APPS = (
-          ...
-          'django_exportapp',
-        )
+    INSTALLED_APPS = (
+        ...
+        'django_exportapp',
+    )
 
 3. Add add variables to settings project like this::
 
-        EXPORTAPP_PUBLIC_DIR = '/home/user/dpub'
-        EXPORTAPP_PRIVATE_DIR = '/home/user/private'
+    EXPORTAPP_PUBLIC_DIR = '/home/user/dpub'
+    EXPORTAPP_PRIVATE_DIR = '/home/user/private'
