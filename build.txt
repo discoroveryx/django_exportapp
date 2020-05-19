@@ -1,3 +1,5 @@
 python3 setup.py sdist bdist_wheel && /home/www/.pyenv/bin/pip3 install /home/www/crm/pypi/django_exportapp/dist/django_exportapp-0.1.tar.gz
 
+twine upload dist/*
+
 /home/www/.pyenv/bin/pip3 uninstall django-exportapp
