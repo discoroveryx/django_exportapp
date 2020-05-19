@@ -1,13 +1,14 @@
 from django_exportapp.helper import exporter
 from django_exportapp.helper import BaseClassExporter
 
-from .models import buyer
 from django.contrib.auth.models import User
+
+from .models import Foo
 
 import random
 
 
-class UserDumpapp(BaseClassDumpapp):
+class UserExportapp(BaseClassExporter):
     export_status = True
 
     def return_field_value(self, field_name, field_value):
@@ -17,25 +18,25 @@ class UserDumpapp(BaseClassDumpapp):
         return field_value
 
 
-dumpinit.reg(User, UserDumpapp)
+exporter.reg(User, UserExportapp)
 
 
-class buyerDumpapp(BaseClassDumpapp):
+class FooExportapp(BaseClassExporter):
     export_status = True
     export_mode = ['private', 'public']
 
     def return_field_value(self, field_name, field_value):
         if field_name == 'f':
             return field_value[:3]
-        #
+
         if field_name == 'phone':
-            if field_value != '9504090320':
+            if field_value != '9501234567':
                 field_value = random.randint(9000000000, 9999999999)
-        #
+
         if field_name == 'anketa':
             return ''
-        #
+
         return field_value
 
 
-dumpinit.reg(buyer, buyerDumpapp)
+exporter.reg(Foo, FooExportapp)
